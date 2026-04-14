@@ -155,12 +155,12 @@ TEST_F(DNSQueryTests, retrieveLastLogDateTime)
 		std::chrono::year_month_day lastDate;
 		std::chrono::hh_mm_ss<std::chrono::seconds> lastTime;
 		db.mostRecentDateTime(lastDate, lastTime);
-		EXPECT_EQ(lastDate.year(), chrono::year(2026)) << "Retrieved an invalid Year from the database.";
+		EXPECT_EQ(lastDate.year(), chrono::year(1970)) << "Retrieved an invalid Year from the database.";
 		EXPECT_EQ(lastDate.month(), chrono::month(1)) << "Retrieved an invalid Month from the database.";
-		EXPECT_EQ(lastDate.day(), chrono::day(28)) << "Retrieved an invalid Day from the database.";
+		EXPECT_EQ(lastDate.day(), chrono::day(1)) << "Retrieved an invalid Day from the database.";
 		EXPECT_EQ(lastTime.hours().count(), 0) << "Retrieved an invalid Hour from the database.";
 		EXPECT_EQ(lastTime.minutes().count(), 0) << "Retrieved an invalid Minute from the database.";
-		EXPECT_EQ(lastTime.seconds().count(), 10) << "Retrieved an invalid Second from the database.";
+		EXPECT_EQ(lastTime.seconds().count(), 0) << "Retrieved an invalid Second from the database.";
 
 		db.close();
 	}

@@ -134,11 +134,14 @@ public:
 				int min = res->getInt(5);
 				int sec = res->getInt(6);
 
-				std::chrono::day ddd = std::chrono::day{ dd };
-				std::chrono::month mmm = std::chrono::month{ mm };
-				std::chrono::year yyy = std::chrono::year{ yy };
-				maxDate = yyy/mmm/ddd;
-				maxTime = chrono::hh_mm_ss<std::chrono::seconds>(chrono::hours(hour) + chrono::minutes(min) + chrono::seconds(sec));
+				if (yy != 0)	// if the year is 0 then the date is invalid and should be ignored
+				{
+					std::chrono::day ddd = std::chrono::day{ dd };
+					std::chrono::month mmm = std::chrono::month{ mm };
+					std::chrono::year yyy = std::chrono::year{ yy };
+					maxDate = yyy / mmm / ddd;
+					maxTime = chrono::hh_mm_ss<std::chrono::seconds>(chrono::hours(hour) + chrono::minutes(min) + chrono::seconds(sec));
+				}
 				res->next();	// should move past EOF
 			}
 			stmnt->getMoreResults();	// flush the rest of the buffer

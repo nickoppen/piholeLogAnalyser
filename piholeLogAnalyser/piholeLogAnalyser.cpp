@@ -14,6 +14,13 @@
 
 using namespace std;
 
+string nowAsString()
+{
+    auto now = std::chrono::system_clock::now();
+    auto zt = std::chrono::zoned_time{ std::chrono::current_zone(), now };
+    return std::format("{:%F %T}", zt);
+}
+
 int appendFoundFilesInDirectoryToList(const filesystem::directory_entry file, regex rx, list<filesystem::path> * fileList)
 {
     if (regex_match(file.path().filename().c_str(), rx))
@@ -357,8 +364,7 @@ int main(int argc, char** argv)
     ofstream errorLogger;
     errorLogger.open(args.errorPathFilename.c_str());
 
-    auto now = std::chrono::system_clock::now();
-    errorLogger << "Opened: " << std::format("{:%F %T}", now) << endl;   
+    errorLogger << "Opened: " << nowAsString() << endl;   
 
     if (customPatterns.is_open())
     {
@@ -366,7 +372,7 @@ int main(int argc, char** argv)
 
         if (searchDirectoryForMatchingFilesAndAppendToList(&args, &fileList, &errorLogger) > 0)
         {
-            cout << std::format("{:%F %T}", now) << " : " << fileList.size() << " found" << endl;
+            cout << nowAsString() << " : " << fileList.size() << " file(s) found" << endl;
 
             try
             {
@@ -404,8 +410,7 @@ int main(int argc, char** argv)
 							auto end = std::chrono::steady_clock::now();
                             fileProcessingTimeInSeconds = end - start;
                             
-                            // reset strNow
-                            msg << std::format("{:%F %T}", std::chrono::system_clock::now()) << " File: " << fileIter->filename() << " processing time: " << fileProcessingTimeInSeconds << " seconds,  insert time : " << dbInsertTimeInSeconds.count() << " seconds for " << linesInserted << " lines";
+                            msg << nowAsString() << " File: " << fileIter->filename() << " processing time: " << fileProcessingTimeInSeconds << " seconds,  insert time : " << dbInsertTimeInSeconds.count() << " seconds for " << linesInserted << " lines";
                             db.updateLogFileRecord(&readLogKey, linesInserted, msg.str());
 
                             filesProcessed++;
@@ -451,7 +456,7 @@ int main(int argc, char** argv)
                         cout << endl << "Done with bulk updates" << endl;
 #endif // DEBUG
 
-                        cout << std::format("{:%F %T}", std::chrono::system_clock::now()) << " Files processed: " << filesProcessed << " in " << totalProcessingTimeInSeconds.count() << " seconds." << endl;
+                        cout << nowAsString() << " Files processed: " << filesProcessed << " in " << totalProcessingTimeInSeconds.count() << " seconds." << endl;
 
                     }
 
