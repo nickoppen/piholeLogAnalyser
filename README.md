@@ -1,17 +1,21 @@
 # Before starting
 Insure that you have permission to use sudo.
 Install the minimum packages:
+
             sudo apt update
             sudo apt install build-essential cmake curl g++ gdb git gh make rsync
 
 Log into your github account using gh:
+
             gh auth login... (however you do this)
 Download the source code for this project from using gh:
+
             gh repo clone nickoppen/piholeLogAnalyser
 
 
 # Grok++ library
 Grok++ is a C++ library for parsing log files using the "Grok" extensions to basic regular expressions. It has nothing to do with the many other uses of the word (https://en.wikipedia.org/wiki/Grok_(disambiguation)). For an introduction see https://www.elastic.co/docs/reference/logstash/plugins/plugins-filters-grok.
+
 This is a implementation of Roman Marusyk's [Grok.Net](https://github.com/Marusyk/grok.net). All credit for the design goes to him.
 
 ## To Compile
@@ -44,7 +48,7 @@ Written in C++20 and developed on piOS and Ubuntu (24.04).
             make
 
 ## To Run
-- Set up the database as per the database schema
+- Set up the database as per the database schema dbPiholeLog.sql.
 - Root priviledges are needed to read /var/log/pihole/pihole.log.1 (so to run yesterday's log file run the executable with sudo)
 - Copy the grok custom pattern file, grokCustom.txt to current directory. Note: if you have scheduled execution using cron then . (current directory) is the users home directory. 
 - Run the executable with the -p option and the -check option to check that the database connection, log file specification and grok custom pattern file are all correct and that log files can be found. Output will be written to the load error file (default: ./loadError.txt) and the program will exit. If there are no errors then the load error file will be empty.
