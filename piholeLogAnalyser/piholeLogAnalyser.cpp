@@ -234,7 +234,7 @@ void readArgs(int argc, char** argv, cliArgs * args)
             cout << "-p : Pretend to add to the database (default: false)" << endl;
             cout << "-t milliseconds : max exec time for regex (default == 0 or no time limit)" << endl;
             cout << "-gp File name : specify the location of the grok pattern file (default: ./grokCustom.txt)" << endl;
-            cout << "-gs File name : The file containing the applications grok string (default: ./grokString.txt" << endl;
+            cout << "-gs File name : The file containing the applications grok string (default: ./grokString.txt)" << endl;
             cout << "-e Full path to the load error file" << endl;
             cout << "-user username : log in to the database with the given username" << endl;
             cout << "-pwd pwd : log into the database with the given password" << endl;
