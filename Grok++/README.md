@@ -28,6 +28,7 @@ int main()
 	}
 
 	grokplusplus::grok grok(grokString, customPatterns);
+	// Patterns can also be added programmatically using the addPatterns(map<string, string>) function. The first string in the pair is the name of the pattern (e.g. "LOGEMAIL"") and the second string the pattern ("[a-zA-Z][a-zA-Z0-9_.+-=:]+@%{LOGDOMAIN}").
 	grok.parsePatterns();
 
 	// Read the log line to be parsed (in practice you would read this from a file or stream)

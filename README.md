@@ -70,9 +70,11 @@ Written in C++20 and developed on piOS and Ubuntu (24.04).
 
 ## Automated Mode
 To automate the execution of the program you can set up a cron job. For example, to run the program every day at 2am you can add the following line to your crontab file (use `crontab -e` to edit your crontab):
+
             0 2 * * * /path/to/piholeLogAnalyser -d /var/log/pihole -f 'pihole.log.1' -gp /path/to/grokCustom.txt -gs /path/to/grokString.txt -e /path/to/loadError.txt -user dbUser -pwd dbPassword -ip dbIP -port dbPort -db dbName
 
 I use a shell script to run the program in automated mode and to handle the output of the load error file (it's easier than mucking around with crontab all the time). The cron job looks like this:
+
             0 2 * * * /path/to/runPiholeLogAnalyser.sh
 
 And the shell script looks like this:

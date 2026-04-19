@@ -66,6 +66,12 @@ namespace grokplusplus
             addPatterns(customPatterns);
         }
 
+        void addPatterns(map<string, string>customPatterns)
+        {
+            for (std::map<string, string>::iterator patternPair = customPatterns.begin(); patternPair != customPatterns.end(); ++patternPair)
+                addPatternIfNotExists(patternPair->first, patternPair->second);
+        }
+
         /// <summary>
         /// Parse the give text based on the regular expression generated from the Grok pattern
         /// Return a pointer to the member variable grkRes which is an instance of grokResult 
@@ -204,12 +210,6 @@ namespace grokplusplus
         void loadCustomPatterns(ifstream* customPatternFile)
         {
             loadPatterns(customPatternFile);
-        }
-
-        void addPatterns(map<string, string>customPatterns)
-        {
-            for (std::map<string, string>::iterator patternPair = customPatterns.begin(); patternPair != customPatterns.end(); ++patternPair)
-                addPatternIfNotExists(patternPair->first, patternPair->second);
         }
 
         void addPatternIfNotExists(string key, string value)
