@@ -7,8 +7,7 @@ project(grok++ CXX)
 include_directories(${PROJECT_SOURCE_DIR} "/usr/include")
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
-add_library(${PROJECT_NAME} STATIC "grok.cpp" "grok.h" "grokException.h" "grokResult.h" "grokNamedSubExpression.h")
-
+add_library(${PROJECT_NAME} STATIC "grok.cpp" "grok.h" "grokException.h" "grokResult.h" "grokNamedSubExpression.h" )
 
 
 #Shared lib ending in .so

@@ -27,9 +27,9 @@ int main()
 		return 1;
 	}
 
-	grokplusplus::grok grok(grokString, customPatterns);
+	grokplusplus::grok grok(grokString, &customPatterns);
 	// Patterns can also be added programmatically using the addPatterns(map<string, string>) function. The first string in the pair is the name of the pattern (e.g. "LOGEMAIL"") and the second string the pattern ("[a-zA-Z][a-zA-Z0-9_.+-=:]+@%{LOGDOMAIN}").
-	grok.parsePatterns();
+	grok.parseGrokString();	// Call after all patterns have been added to the grok object to parse the grok string and prepare it for parsing log lines.
 
 	// Read the log line to be parsed (in practice you would read this from a file or stream)
 	std::string logLine = "Mar 28 00:15:14 dnsmasq[65558]: query[A] 192-168-1-122.tpgi.com.au from 192.168.1.102";	
@@ -50,14 +50,14 @@ int main()
 	if (result->match) 
 	{
 		// Access the parsed values using the names defined in the grok string (grokResult is currently not iterable so you need to know the names of the values you want to access))
-		// Use the valueAsString function to get the value as a string 
+		// Use the ->valueAsString() function to get the value as a string 
 		std::cout << "Action From: " << (*result)["ActionFrom"].valueAsString() << std::endl;
 
 		tm timeOfCall;
         memset(&timeOfCall, 0, sizeof(tm));
         char timeFormat[] = "%b %d %H:%M:%S";
 
-		// Use the value function to get the value converted to a specific type (e.g. datetime, int, etc.) if you have specified a type in your grok string.
+		// Use the ->value() function to get the value converted to a specific type (e.g. datetime, int, etc.) if you have specified a type in your grok string.
 		cout << "Timestamp: " << (*result).value(&timeOfCall, &valueAsString, timeFormat)) << std::endl;
 
 	} 

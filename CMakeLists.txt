@@ -29,7 +29,8 @@ add_subdirectory ("piholeLogAnalyser")
 add_subdirectory ("Grok++")
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")	# CMAKE_BUILD_TYPE "Debug"" is set in CMakePresets.json
-	add_subdirectory ("LogAnalyserTest")
+	add_subdirectory ("LogAnalyserUnitTests")
+	add_subdirectory ("Grok++UnitTests")
 endif()
 
 
