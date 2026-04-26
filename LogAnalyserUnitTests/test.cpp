@@ -24,10 +24,10 @@ struct DNSQueryTests : public ::testing::Test {
 		logTimeOfCall.tm_sec = sec;
 	}
 
-	virtual void SetUp() {
-		// Code here will be called immediately after the constructor (right before each test).
+	virtual void SetUp() 
+	{
 		errLogger.open("test_error_log.txt", ios::out | ios::app); // Open the error log file for writing
-		db.setupForTest(&errLogger); // You would need to create a mock or a stub for this
+		db.setupForTest(&errLogger); 
 		query.setupForTest(&db, &errLogger);
 
 		args.databaseName = "dbPiholeLogTest";
@@ -37,9 +37,8 @@ struct DNSQueryTests : public ::testing::Test {
 		args.serverPortNumber = "3306";
 	}
 
-	virtual void TearDown() {
-		// Code here will be called immediately after each test (right before the destructor).
-
+	virtual void TearDown() 
+	{
 		errLogger.close();
 		// remove the open error log file
 
@@ -48,8 +47,8 @@ struct DNSQueryTests : public ::testing::Test {
 
 TEST_F(DNSQueryTests, constructorTest)
 {
-	ASSERT_EQ( query._currentYear, 2026y ) << "Incorrect Year: is not 2026.\n";
-	ASSERT_EQ(query._currentMonth, April) << "Check the current month against this test.\n";
+	ASSERT_EQ(query._currentYear, 2026y) << "Incorrect Year: is not 2026.\n";					// change this to match the current year when you run the test
+	ASSERT_EQ(query._currentMonth, April) << "Check the current month against this test.\n";	// change this to match the current month when you run the test. Note that the month is 1 based in year_month_day but tm_mon is 0 based so April is represented by 4 in year_month_day but 3 in tm
 }
 
 TEST_F(DNSQueryTests, timeDateSetRequestTestFrom_tm)
@@ -66,7 +65,7 @@ TEST_F(DNSQueryTests, timeDateSetRequestTestFrom_tm)
 
 	// the next day
 	logTimeOfCall.tm_mon = 0; //  January == 0
-	logTimeOfCall.tm_mday = 1; // day of the month, so this represents the 1st
+	logTimeOfCall.tm_mday = 1; // day of the month, so this represents the 1 Jan
 	query.setRequest(logTimeOfCall, targetDomain, callerIPAddr);
 	EXPECT_EQ(query._dateOfQuery->year(), 2026y); // You would need to add assertions here to check the values of _timeOfQuery, _dateOfQuery, _domain, _callerIP, and _callerSubNetID
 	EXPECT_EQ(query._dateOfQuery->month(), January); // month is 1 based in year_month_day

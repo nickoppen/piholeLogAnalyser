@@ -136,7 +136,7 @@ void readArgs(int argc, char** argv, cliArgs * args)
     args->maxExecTimeInMilliseconds = 0;
     args->customPatternFilename = "./grokCustom.txt";
     args->dbUserName = "logUser";
-    args->dbUserPwd = "oppen20:Log";
+	args->dbUserPwd = "Password123";            // change this in production code and consider using a more secure way to store the password
     args->serverIPAddress = "192.168.1.110";
     args->serverPortNumber = "3306";
     args->databaseName = "dbPiholeLog";
